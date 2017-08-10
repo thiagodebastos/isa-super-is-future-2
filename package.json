@@ -1,7 +1,7 @@
 {
-  "name": "interactive-atom-template",
+  "name": "isa-super-is-future-2",
   "version": "1.0.0",
-  "description": "Interactive atom base template",
+  "description": "Industry Super Fund - Infographic 2",
   "main": "src/render.js",
   "scripts": {
     "start": "gulp",
