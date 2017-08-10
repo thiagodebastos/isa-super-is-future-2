@@ -75,8 +75,18 @@ $margins: (default: 30px);
   .clear--right {
     clear: right;
   }
+  .clear--left {
+    clear: left;
+  }
   .offset--top {
     padding-top: 1em;
+  }
+  .copy {
+    &--left {
+      clear: none;
+      float: left;
+      border: 1px solid red;
+    }
   }
   & .page-header {
     position: relative;
@@ -89,7 +99,7 @@ $margins: (default: 30px);
     margin: 0 0 20px 0;
     color: white;
     width: span(4 of 4);
-    @media only screen and (min-width: map-get($mq, tablet)) {
+    @media only screen and (min-width: map-get($mq, desktop)) {
       background-image: url('<%= path %>/assets/industry-super-bg-dp.jpg');
     }
   }
@@ -101,7 +111,7 @@ $margins: (default: 30px);
     font-size: 24px;
     font-weight: normal;
     line-height: 1.25em;
-    @media (min-width: map-get($mq, tablet)) {
+    @media (min-width: map-get($mq, desktop)) {
       max-width: 680px;
       margin: 0 auto;
       font-size: 32px;
@@ -134,7 +144,7 @@ $margins: (default: 30px);
       flex: 1 1 span(4);
       margin-bottom: 1.75em;
       padding: 0 gutter();
-      @media only screen and (min-width: map-get($mq, tablet)) {
+      @media only screen and (min-width: map-get($mq, desktop)) {
         text-align: left;
         padding-left: 80px;
         padding-right: 80px;
@@ -159,7 +169,7 @@ $margins: (default: 30px);
         display: block;
       }
     }
-    @media (min-width: map-get($mq, tablet)) {
+    @media (min-width: map-get($mq, desktop)) {
       &--left {
         max-width: 50%;
         float: left;
@@ -346,7 +356,7 @@ $margins: (default: 30px);
     &--item {
       position: relative;
       margin: 0 auto;
-      @media only screen and (min-width: map-get($mq, tablet)) {
+      @media only screen and (min-width: map-get($mq, desktop)) {
         flex: 1 1 span(2 of 4);
       }
       margin-bottom: 40px;
@@ -391,12 +401,18 @@ $margins: (default: 30px);
   }
   .pullquote {
     display: flex;
-    @media only screen and (min-width: map-get($mq, tablet)) {
+    @media only screen and (min-width: map-get($mq, desktop)) {
       margin-right: 80px;
+      &--left {
+        margin-left: 80px;
+      }
     }
     @media only screen and (min-width: map-get($mq,
     desktop)) {
       margin-right: 160px;
+      &--left {
+        margin-left: 160px;
+      }
     }
     .image {
       padding-right: 10px;
@@ -404,7 +420,7 @@ $margins: (default: 30px);
     img {
       width: 30px;
       margin-top: 1em;
-      @media only screen and (min-width: map-get($mq, tablet)) {
+      @media only screen and (min-width: map-get($mq, desktop)) {
         width: 40px;
       }
     }
@@ -415,7 +431,7 @@ $margins: (default: 30px);
       font-style: italic;
       position: relative;
       line-height: 1.25em;
-      @media only screen and (min-width: map-get($mq, tablet)) {
+      @media only screen and (min-width: map-get($mq, desktop)) {
         font-size: 24px;
       }
     }
