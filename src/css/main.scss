@@ -1,0 +1,430 @@
+@import "mq";
+@import "fonts";
+@include guss-typography-defaults;
+
+/* @import "embed"; */
+
+/* Uncomment for full screen (including immersive article main media) */
+
+/* @import "fullscreen"; */
+
+/* Grid */
+
+@import 'susy';
+
+/* @import 'plugins/svg-grid'; */
+
+$susy: (
+  'columns': susy-repeat(4),
+  'gutters': 0.25,
+  'spread': 'narrow',
+  'container-spread': 'narrow'
+);
+
+/* Variables */
+
+$colours: (primary: #005689, secondary: #e3c426, secondary-light: #ffe98f);
+$font-size: (body: 20px);
+$mq: (mobile: 500px, tablet: 900px, desktop: 1150px);
+$padding: (desktop: 40px);
+$margins: (default: 30px);
+
+/* mixins */
+@mixin fontHeadline {
+  font-family: $f-serif-headline;
+  font-weight: 600;
+}
+
+/* Interactive Styles */
+
+.element-atom,
+.interactive-atom {
+  background-color: #d7d7d7;
+  margin: 0 !important;
+  padding: 0;
+  * {
+    box-sizing: border-box;
+  }
+  a {
+    text-decoration: underline;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: gutter() / 2;
+    div[class^="col"] {
+      padding: gutter() / 2;
+    }
+    .col-1 {
+      flex: 1 1 span(1 of 4);
+    }
+    .col-2 {
+      flex: 1 1 span(2 of 4);
+    }
+    .col-3 {
+      flex: 1 1 span(3 of 4);
+    }
+    .col-4 {
+      flex: 1 1 span(4 of 4);
+    }
+  }
+  .clear--both {
+    clear: both;
+  }
+  .clear--right {
+    clear: right;
+  }
+  .offset--top {
+    padding-top: 1em;
+  }
+  & .page-header {
+    position: relative;
+    background-image: url('<%= path %>/assets/industry-super-bg-mob.jpg');
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 518px;
+    text-align: center;
+    padding: 0 20px;
+    margin: 0 0 20px 0;
+    color: white;
+    width: span(4 of 4);
+    @media only screen and (min-width: map-get($mq, tablet)) {
+      background-image: url('<%= path %>/assets/industry-super-bg-dp.jpg');
+    }
+  }
+  & .page-title {
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+    font-family: $f-sans-serif-headline;
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.25em;
+    @media (min-width: map-get($mq, tablet)) {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 32px;
+    }
+  }
+  .scroll-down {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: inherit;
+    img {
+      padding-top: 16px;
+      display: block;
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  section {
+    padding: gutter() / 2 gutter() 0;
+    &:last-of-type {
+      padding-bottom: gutter();
+    }
+    > p {
+      font-family: $f-sans-serif-headline, sans-serif;
+      font-size: 20px;
+      line-height: 1.25em;
+      text-align: center;
+      flex: 1 1 span(4);
+      margin-bottom: 1.75em;
+      padding: 0 gutter();
+      @media only screen and (min-width: map-get($mq, tablet)) {
+        text-align: left;
+        padding-left: 80px;
+        padding-right: 80px;
+      }
+      @media only screen and (min-width: map-get($mq,
+      desktop)) {
+        padding-left: 160px;
+        padding-right: 160px;
+      }
+    }
+  }
+  .tile {
+    text-align: center;
+    margin-bottom: 2em;
+    background-color: #e5e5e5;
+    padding: gutter() / 4 gutter();
+    border: 36px solid #e7e7e7; // border-image: url("<%= path %>/assets/border-image.svg") 50% round;
+    border-image: url("<%= path %>/assets/asset.svg") 48% round;
+    // HACK: because on smaller devices, this breaks
+    @media (max-width: map-get($mq, desktop)) {
+      &--left .row {
+        display: block;
+      }
+    }
+    @media (min-width: map-get($mq, tablet)) {
+      &--left {
+        max-width: 50%;
+        float: left;
+        clear: both;
+        margin-right: map-get($padding, desktop);
+      }
+      &--right {
+        max-width: 50%;
+        float: right;
+        clear: both;
+        margin-left: map-get($padding, desktop);
+      }
+    }
+    hr {
+      width: 100px;
+      border: 2px solid map-get($colours, secondary);
+      margin-bottom: gutter();
+    }
+    &--title {
+      color: map-get($colours, primary);
+      margin-bottom: 1.25em;
+      p {
+        font-family: 'DS5 Display Sans', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.25em;
+      }
+    }
+    &--stat {
+      @include fontHeadline;
+      font-size: 56px;
+      color: map-get($colours, primary);
+      line-height: 1em;
+    }
+    &--caption {
+      @include fontHeadline;
+      font-size: 1em;
+      margin-bottom: gutter() * 2;
+      &__small {
+        @include fontHeadline;
+        font-size: .75em;
+      }
+    }
+  }
+  .donut-chart-1,
+  .donut-chart-2 {
+    position: relative;
+    width: 190px;
+    margin: 0 auto;
+    margin-bottom: gutter();
+  }
+  .donut-chart--stat {
+    font-size: 46px;
+    @include fontHeadline;
+    color: map-get($colours, primary);
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    transform: translate(-50%);
+    sup {
+      font-size: 24px;
+    }
+  }
+  .donut-chart-1 {
+    .st0 {
+      fill: map-get($colours, secondary-light);
+    }
+    .st1 {
+      fill: map-get($colours, primary);
+    }
+  }
+  .donut-chart-2 {
+    .st0 {
+      fill: map-get($colours, secondary-light);
+      &:hover {
+        opacity: .5;
+      }
+    }
+    .st1 {
+      fill: map-get($colours, secondary);
+    }
+    .st2 {
+      fill: map-get($colours, primary);
+    }
+  }
+  .tooltip {
+    top: 10%;
+    margin-bottom: gutter();
+    padding-left: gutter();
+    font-family: $f-sans-serif-headline, sans-serif;
+    position: relative;
+    &:before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      top: 2px;
+      left: -6px;
+    }
+    &:nth-child(1) {
+      &:before {
+        background-color: map-get($colours, primary);
+      }
+    }
+    &:nth-child(2) {
+      &:before {
+        background-color: darken(map-get($colours, secondary), 10%);
+      }
+    }
+    p,
+    h4 {
+      text-align: left;
+      margin: 0;
+      padding: 0;
+    }
+    h4 {
+      margin-bottom: gutter();
+    }
+    p {
+      margin-bottom: gutter() * 2;
+      font-size: 12px;
+    }
+  }
+  .section-2 {
+    display: flex;
+    flex-direction: column;
+    .copy {
+      order: 0;
+    }
+    .tile {
+      order: 1;
+    }
+    @media only screen and (min-width: map-get($mq,
+    tablet)) {
+      .copy {
+        order: 1;
+      }
+    }
+  }
+  .bar-graph {
+    margin-bottom: gutter();
+    .st0 {
+      fill: map-get($colours, secondary-light);
+    }
+    .st1 {
+      fill: map-get($colours, primary);
+      stroke: #d7d7d7;
+      stroke-width: .25;
+      stroke-miterlimit: 10;
+    }
+    &--title {
+      color: map-get($colours, primary);
+      font-size: 28px;
+      @include fontHeadline;
+      line-height: 1.25em;
+    }
+  }
+  #bar-graph-1 {
+    & rect {
+      fill: map-get($colours, secondary-light);
+      stroke: #d7d7d7;
+      stroke-miterlimit: 10;
+      stroke-width: 0.25;
+    }
+  }
+  #bar-graph-2 {
+    & rect {
+      width: 35.54px;
+      height: 71.49px;
+      fill: map-get($colours, secondary-light);
+      stroke: #d7d7d7;
+      stroke-miterlimit: 10;
+      stroke-width: 0.25;
+    }
+  }
+  .poll-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: gutter() / 2 0;
+    .tile--title {
+      flex: 1 0 span(4 of 4);
+    }
+    &--item {
+      position: relative;
+      margin: 0 auto;
+      @media only screen and (min-width: map-get($mq, tablet)) {
+        flex: 1 1 span(2 of 4);
+      }
+      margin-bottom: 40px;
+      h3,
+      h4 {
+        margin: 0;
+      }
+      h3,
+      h4,
+      sup {
+        color: map-get($colours, primary);
+        font-family: $f-serif-headline, serif;
+      }
+      h4 {
+        line-height: 1em;
+      }
+      h3 {
+        display: inline-block;
+        font-size: 64px;
+      }
+      sup {
+        position: absolute;
+        top: 0;
+      }
+      h4,
+      sup {
+        font-size: 32px;
+      }
+      h4 {
+        margin-bottom: 16px;
+      }
+      i {
+        display: block;
+        max-width: 330px;
+        margin: 0 auto;
+        font-size: 24px;
+      }
+    }
+    &--source {
+      flex: 0 1 span(4 of 4);
+    }
+  }
+  .pullquote {
+    display: flex;
+    @media only screen and (min-width: map-get($mq, tablet)) {
+      margin-right: 80px;
+    }
+    @media only screen and (min-width: map-get($mq,
+    desktop)) {
+      margin-right: 160px;
+    }
+    .image {
+      padding-right: 10px;
+    }
+    img {
+      width: 30px;
+      margin-top: 1em;
+      @media only screen and (min-width: map-get($mq, tablet)) {
+        width: 40px;
+      }
+    }
+    blockquote {
+      margin: gutter() / 2;
+      font-size: 24px;
+      font-family: $f-sans-serif-headline;
+      font-style: italic;
+      position: relative;
+      line-height: 1.25em;
+      @media only screen and (min-width: map-get($mq, tablet)) {
+        font-size: 24px;
+      }
+    }
+    .cite {
+      margin-top: gutter();
+      display: block;
+      font-style: normal;
+      font-size: .8em;
+      line-height: 1.25em;
+    }
+  }
+}
