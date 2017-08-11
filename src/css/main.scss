@@ -327,7 +327,7 @@ $margins: (default: 30px);
       line-height: 1.25em;
     }
   }
-  #bar-graph-1 {
+  .bar-graph-1 svg {
     & rect {
       fill: map-get($colours, secondary-light);
       stroke: #d7d7d7;
@@ -335,15 +335,22 @@ $margins: (default: 30px);
       stroke-width: 0.25;
     }
   }
-  #bar-graph-2 {
-    & rect {
+  .bar-graph-2 svg {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .bar-graph-3 svg {
+    margin-left: -20px;
+    margin-right: -20px;
+
+    /*     & rect {
       width: 35.54px;
       height: 71.49px;
       fill: map-get($colours, secondary-light);
       stroke: #d7d7d7;
       stroke-miterlimit: 10;
       stroke-width: 0.25;
-    }
+    } */
   }
   .poll-grid {
     display: flex;
