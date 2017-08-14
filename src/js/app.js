@@ -11,7 +11,7 @@ import ScrollMagic from "scrollmagic";
 
 const TL = new TimelineMax();
 
-TL.set(".bar-graph-3 rect", {
+TL.set(".bar-graph-3 rect, .bar-graph-2--bar", {
   autoAlpha: 0
 });
 
@@ -128,6 +128,32 @@ function scrollMagicCustomGraph_01() {
     .addTo(controller);
 }
 
+function scrollMagicCustomGraph_02() {
+  const controller = new ScrollMagic.Controller();
+  const scene = new ScrollMagic.Scene({
+      triggerElement: ".bar-graph-2",
+      duration: 250,
+      reverse: false
+    })
+    .on("start", () =>
+      TL.set(".bar-graph-2--bar", {
+        autoAlpha: 1
+      })
+      .staggerFrom(
+        ".bar-graph-2--bar",
+        0.5, {
+          scaleX: 0,
+          transformOrigin: "left center",
+          ease: Power1.easeIn
+        },
+        0.1
+      )
+      .to(".bar-graph-2 text", 0.25, {
+        autoAlpha: 1
+      }))
+    .addTo(controller);
+}
+
 function scrollMagicGraphs(externalAnimation, target) {
   const controller = new ScrollMagic.Controller();
   const scene = new ScrollMagic.Scene({
@@ -157,8 +183,7 @@ function scrollMagicAnimations(externalAnimation) {
   }
 
   function init() {
-    targets = [
-      {
+    targets = [{
         triggerNode: "#stats_02",
         animationTarget: nodeListToArray("#stats_02 .stat-number"),
         stats: [6]
@@ -189,6 +214,7 @@ function App() {
   scrollMagicGraphs(animateGraph, "#bar-graph-1");
   scrollMagicGraphs(animateGraph, "#bar-graph-2");
   scrollMagicCustomGraph_01();
+  scrollMagicCustomGraph_02();
 }
 
 let scrollDownButton;
