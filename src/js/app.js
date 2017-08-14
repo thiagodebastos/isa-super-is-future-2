@@ -1,7 +1,19 @@
 import TimelineLite from "gsap/TimelineLite";
-import { TweenLite } from "gsap";
+import {
+  TweenLite
+} from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 import ScrollMagic from "scrollmagic";
+
+//
+// ─── SET THE STAGE ──────────────────────────────────────────────────────────────
+//
+
+const TL = new TimelineMax();
+
+TL.set(".bar-graph-3 rect", {
+  autoAlpha: 0
+});
 
 //
 // ─── SMOOTH SCROLLING ───────────────────────────────────────────────────────────
@@ -11,7 +23,9 @@ function Scroller(scrollElement, scrollTarget) {
   const TL = new TimelineLite({});
   scrollElement.addEventListener("click", evt => {
     evt.preventDefault();
-    TL.to(window, 0.5, { scrollTo: scrollTarget });
+    TL.to(window, 0.5, {
+      scrollTo: scrollTarget
+    });
   });
 }
 
@@ -20,7 +34,9 @@ function animateGraph(graphID) {
 
   const rects = nodeListToArray(`${graphID} rect.fill`);
   rects.map(rect => {
-    return TL.to(rect, 0.1, { fill: "#005689" });
+    return TL.to(rect, 0.1, {
+      fill: "#005689"
+    });
   });
 }
 
@@ -44,8 +60,7 @@ function animateNumbers(element, val) {
   const TL = new TimelineLite();
   TL.to(
     counter,
-    1,
-    {
+    1, {
       value: val,
       roundProps: "value",
       onUpdate: () => updateHandler(element, counter.value),
@@ -82,24 +97,44 @@ function animateNumberArray(target, stats) {
 // ─── SCROLLMAGIC ────────────────────────────────────────────────────────────────
 //
 
-function scrollMagicMisc() {
+function scrollMagicCustomGraph_01() {
   const controller = new ScrollMagic.Controller();
   const scene = new ScrollMagic.Scene({
-    triggerElement: ".pullquote",
-    duration: 250,
-    reverse: false
-  })
-    .on("start", () => TweenMax.to(".pullquote", 1, { autoAlpha: 1 }))
+      triggerElement: ".bar-graph-3",
+      duration: 250,
+      reverse: false
+    })
+    .on("start", () =>
+      TL.set(".bar-graph-3 rect, .bar-graph-3 line", {
+        autoAlpha: 1
+      })
+      .staggerFrom(
+        ".bar-graph-3 rect",
+        0.5, {
+          scaleY: 0,
+          transformOrigin: "bottom center",
+          ease: Power1.easeIn
+        },
+        0.1
+      )
+      .to(".bar-graph-3 text", 0.25, {
+        autoAlpha: 1
+      })
+      .from(".bar-graph-3 line", 0.25, {
+        scale: 0,
+        transformOrigin: "center center"
+      })
+    )
     .addTo(controller);
 }
 
 function scrollMagicGraphs(externalAnimation, target) {
   const controller = new ScrollMagic.Controller();
   const scene = new ScrollMagic.Scene({
-    triggerElement: "#stats_01",
-    duration: 300,
-    reverse: false
-  })
+      triggerElement: "#stats_01",
+      duration: 300,
+      reverse: false
+    })
     .on("start", () => externalAnimation(target))
     .addTo(controller);
 }
@@ -111,10 +146,10 @@ function scrollMagicAnimations(externalAnimation) {
     controller = new ScrollMagic.Controller();
     thingsToAnimate.map(target => {
       new ScrollMagic.Scene({
-        triggerElement: target.triggerNode,
-        reverse: false
-      })
-        .on("start", function() {
+          triggerElement: target.triggerNode,
+          reverse: false
+        })
+        .on("start", function () {
           return externalAnimation(target.animationTarget, target.stats);
         })
         .addTo(controller);
@@ -124,19 +159,9 @@ function scrollMagicAnimations(externalAnimation) {
   function init() {
     targets = [
       {
-        triggerNode: "#stats_00",
-        animationTarget: nodeListToArray("#stats_00 .stat-number"),
-        stats: [70]
-      },
-      {
-        triggerNode: "#stats_01",
-        animationTarget: nodeListToArray("#stats_01 .stat-number"),
-        stats: [12]
-      },
-      {
-        triggerNode: "#stats_01",
+        triggerNode: "#stats_02",
         animationTarget: nodeListToArray("#stats_02 .stat-number"),
-        stats: [10]
+        stats: [6]
       },
       {
         triggerNode: "#stats_03",
@@ -163,7 +188,7 @@ function App() {
   scrollMagicAnimations(animateNumberArray).init;
   scrollMagicGraphs(animateGraph, "#bar-graph-1");
   scrollMagicGraphs(animateGraph, "#bar-graph-2");
-  // scrollMagicMisc();
+  scrollMagicCustomGraph_01();
 }
 
 let scrollDownButton;

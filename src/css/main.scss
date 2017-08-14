@@ -4,9 +4,12 @@
 
 /* @import "embed"; */
 
+
 /* Uncomment for full screen (including immersive article main media) */
 
+
 /* @import "fullscreen"; */
+
 
 /* Grid */
 
@@ -14,12 +17,7 @@
 
 /* @import 'plugins/svg-grid'; */
 
-$susy: (
-  'columns': susy-repeat(4),
-  'gutters': 0.25,
-  'spread': 'narrow',
-  'container-spread': 'narrow'
-);
+$susy: ( 'columns': susy-repeat(4), 'gutters': 0.25, 'spread': 'narrow', 'container-spread': 'narrow');
 
 /* Variables */
 
@@ -30,10 +28,12 @@ $padding: (desktop: 40px);
 $margins: (default: 30px);
 
 /* mixins */
+
 @mixin fontHeadline {
   font-family: $f-serif-headline;
   font-weight: 600;
 }
+
 
 /* Interactive Styles */
 
@@ -51,7 +51,6 @@ $margins: (default: 30px);
   .row {
     display: flex;
     flex-direction: row;
-
     margin-bottom: gutter() / 2;
     div[class^="col"] {
       padding: gutter() / 2;
@@ -136,7 +135,7 @@ $margins: (default: 30px);
     &:last-of-type {
       padding-bottom: gutter();
     }
-    > p {
+    >p {
       font-family: $f-sans-serif-headline, sans-serif;
       font-size: 20px;
       line-height: 1.25em;
@@ -157,19 +156,28 @@ $margins: (default: 30px);
     }
   }
   .tile {
+    &:first-of-type .tile--stat {
+      position: relative;
+      sup {
+        position: absolute;
+        top: 20px;
+      }
+    }
+    position: relative;
     text-align: center;
     margin-bottom: 2em;
     background-color: #e5e5e5;
-    padding: gutter() / 4 gutter();
+    padding: 0 gutter();
     border: 36px solid #e7e7e7; // border-image: url("<%= path %>/assets/border-image.svg") 50% round;
-    border-image: url("<%= path %>/assets/asset.svg") 48% round;
-    // HACK: because on smaller devices, this breaks
-    @media (max-width: map-get($mq, desktop)) {
+    border-image: url("<%= path %>/assets/asset.svg") 48% round; // HACK: because on smaller devices, this breaks
+    @media (max-width: map-get($mq,
+    desktop)) {
       &--left .row {
         display: block;
       }
     }
-    @media (min-width: map-get($mq, desktop)) {
+    @media (min-width: map-get($mq,
+    desktop)) {
       &--left {
         max-width: 50%;
         float: left;
@@ -230,28 +238,6 @@ $margins: (default: 30px);
       font-size: 24px;
     }
   }
-  .donut-chart-1 {
-    .st0 {
-      fill: map-get($colours, secondary-light);
-    }
-    .st1 {
-      fill: map-get($colours, primary);
-    }
-  }
-  .donut-chart-2 {
-    .st0 {
-      fill: map-get($colours, secondary-light);
-      &:hover {
-        opacity: .5;
-      }
-    }
-    .st1 {
-      fill: map-get($colours, secondary);
-    }
-    .st2 {
-      fill: map-get($colours, primary);
-    }
-  }
   .tooltip {
     top: 10%;
     margin-bottom: gutter();
@@ -307,9 +293,11 @@ $margins: (default: 30px);
     }
   }
   .bar-graph {
-    margin-bottom: gutter();
+    svg {
+      margin-bottom: gutter() / 2;
+    }
     .st0 {
-      fill: map-get($colours, secondary-light);
+      fill: map-get($colours, secondary);
     }
     .st1 {
       fill: map-get($colours, primary);
@@ -339,18 +327,14 @@ $margins: (default: 30px);
   .bar-graph-3 svg {
     margin-left: -20px;
     margin-right: -20px;
-
-    /*     & rect {
-      width: 35.54px;
-      height: 71.49px;
-      fill: map-get($colours, secondary-light);
-      stroke: #d7d7d7;
-      stroke-miterlimit: 10;
-      stroke-width: 0.25;
-    } */
+    text,
+    line {
+      opacity: 0;
+    }
   }
   .pullquote {
     display: flex;
+    margin-bottom: 20px;
     @media only screen and (min-width: map-get($mq, desktop)) {
       margin-right: 80px;
       &--left {
@@ -394,7 +378,10 @@ $margins: (default: 30px);
     }
   }
   footer {
+    @include f-textSans;
+    font-size: 14px;
     padding: gutter();
     font-style: italic;
+    padding-top: 0;
   }
 }
