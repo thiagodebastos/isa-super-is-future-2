@@ -174,7 +174,7 @@ function scrollMagicCustomGraph_03() {
 function scrollMagicGraphs(externalAnimation, target, triggerElement) {
   const controller = new ScrollMagic.Controller();
   const scene = new ScrollMagic.Scene({
-      triggerElement,
+      triggerElement: triggerElement,
       duration: 300,
       reverse: false
     })
