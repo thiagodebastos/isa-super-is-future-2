@@ -162,6 +162,11 @@ $margins: (default: 30px);
         position: absolute;
         top: 20px;
       }
+      font-size: 42px;
+      @media (min-width: map-get($mq,
+      tablet)) {
+        font-size: 56px;
+      }
     }
     position: relative;
     text-align: center;
